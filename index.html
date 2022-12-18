@@ -11,23 +11,26 @@
 </head>
 <body>
     <div class="container">
-        <div id="question">
-            <h1>Sample question</h1>
+        <div id="questionHeader">
+            <h1 id="question">Sample question</h1>
+            <h3 id="questionCategory">Question category</h3>
         </div>
-        <div class="answer">
-            <h2>Sample answer</h2>
-        </div>
-        <div class="correctAnswer">
-            <h2>Correct answer</h2>
-        </div>
-        <div class="incorrectAnswer">
-            <h2>Incorrect answer</h2>
-        </div>
-        <div class="notUsedAnswer">
-            <h2>Not Used Answer</h2>
+        <div id="answers">
+            <div class="answer">
+                <h2>Sample answer</h2>
+            </div>
+            <div class="correctAnswer">
+                <h2>Correct answer</h2>
+            </div>
+            <div class="incorrectAnswer">
+                <h2>Incorrect answer</h2>
+            </div>
+            <div class="notUsedAnswer">
+                <h2>Not Used Answer</h2>
+            </div>
         </div>
         <div id="buttons">
-            <button type="button" class="button">Get another question</button>
+            <button type="button" class="button" id="getQuestion">Get another question</button>
             <button type="button" class="button">Submit Your result</button>
         </div>
     </div>

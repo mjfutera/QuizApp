@@ -1,7 +1,12 @@
 <?php
     require('scripts.php');
-    $database = 'database.db';
+    
+    header("Content-type: application/json; charset=UTF-8");
+    header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE"); 
+    header("Access-Control-Allow-Headers: Content-Type");
 
+    $database = 'database.db';
     $url = URLarray();
     $i = 3;
 
