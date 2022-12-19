@@ -7,25 +7,33 @@ const memoryCheck = () => {
     if (!localStorage.bestResult) {
         localStorage.setItem("bestResult", 0);
     }
+    if (!document.cookie || document.cookie === '') {
+        document.cookie = '{"bestResult" : 0}';
+    }
+
 }
 
 const result = points => {
     memoryCheck();
     sessionStorage.currentResult = Number(sessionStorage.currentResult) + points;
+    const result = JSON.parse(document.cookie);
     if(Number(sessionStorage.currentResult) >= Number(localStorage.bestResult)) {
         localStorage.bestResult = sessionStorage.currentResult;
     }
+    if(Number(sessionStorage.currentResult) >= Number(result.bestResult)) {
+        result.bestResult = Number(sessionStorage.currentResult);
+    }
+    console.log(result);
+    document.cookie = JSON.stringify(result);
     document.getElementById("currentResult").innerText = sessionStorage.currentResult;
-    document.getElementById("bestResult").innerText = localStorage.bestResult;
-    // console.clear();
-    // console.log("Current result is "+sessionStorage.currentResult);
-    // console.log("Best result is "+localStorage.bestResult);
+    document.getElementById("bestResult").innerText = result.bestResult;
 }
 
 const showQuestion = async () => {
     memoryCheck();
     document.getElementById("currentResult").innerText = sessionStorage.currentResult;
-    document.getElementById("bestResult").innerText = localStorage.bestResult;
+    const result = JSON.parse(document.cookie);
+    document.getElementById("bestResult").innerText = result.bestResult;
     const data = await getData('https://api.michalfutera.pro/QuizApp/database/getQuestion');
     document.getElementById("question").innerText = data['question'];
     document.getElementById("questionCategory").innerText = "Category: "+data['category'];
