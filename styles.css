@@ -3,8 +3,13 @@
 body {
     font-family: 'Roboto', sans-serif;
     background: url(background.jpg);
-    background-repeat: no-repeat;
-    background-size: auto;
+    background-position:top center;
+    background-size:cover;
+    height:100%;
+    width:100%;
+    position:absolute;
+    top:0;
+    left:0;
 }
 
 .container {
