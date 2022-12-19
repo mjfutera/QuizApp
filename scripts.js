@@ -12,15 +12,17 @@ const showQuestion = async () => {
             <h2 id="text-${key}">${value}</h2>
         </div>`);
     }
-    document.getElementById("answers").innerHTML = answersArray.join('');
+    document.getElementById("answers").innerHTML = answersArray.sort((a, b) => 0.5 - Math.random()).join('');
 }
 
 const checkOneAnswer = (chosen, correct, id) => {
     if (chosen === correct) {
         if (chosen == id) {
             document.getElementById(id).className = "correctAnswer";
+            document.getElementById(id).removeAttribute("onclick");
         } else {
             document.getElementById(id).className = "notUsedAnswer";
+            document.getElementById(id).removeAttribute("onclick");
         }
     } else { // incorrect answer
         if (id === correct) {
