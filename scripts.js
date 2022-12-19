@@ -1,6 +1,31 @@
 const getData = async (url) => await fetch(url).then(r => r.json());
 
+const memoryCheck = () => {
+    if (!sessionStorage.currentResult) {
+        sessionStorage.setItem("currentResult", 0);
+    }
+    if (!localStorage.bestResult) {
+        localStorage.setItem("bestResult", 0);
+    }
+}
+
+const result = points => {
+    memoryCheck();
+    sessionStorage.currentResult = Number(sessionStorage.currentResult) + points;
+    if(Number(sessionStorage.currentResult) >= Number(localStorage.bestResult)) {
+        localStorage.bestResult = sessionStorage.currentResult;
+    }
+    document.getElementById("currentResult").innerText = sessionStorage.currentResult;
+    document.getElementById("bestResult").innerText = localStorage.bestResult;
+    // console.clear();
+    // console.log("Current result is "+sessionStorage.currentResult);
+    // console.log("Best result is "+localStorage.bestResult);
+}
+
 const showQuestion = async () => {
+    memoryCheck();
+    document.getElementById("currentResult").innerText = sessionStorage.currentResult;
+    document.getElementById("bestResult").innerText = localStorage.bestResult;
     const data = await getData('https://api.michalfutera.pro/QuizApp/database/getQuestion');
     document.getElementById("question").innerText = data['question'];
     document.getElementById("questionCategory").innerText = "Category: "+data['category'];
@@ -24,7 +49,7 @@ const checkOneAnswer = (chosen, correct, id) => {
             document.getElementById(id).className = "notUsedAnswer";
             document.getElementById(id).removeAttribute("onclick");
         }
-    } else { // incorrect answer
+    } else {
         if (id === correct) {
             document.getElementById(id).className = "correctAnswer";
             document.getElementById(id).removeAttribute("onclick");
@@ -39,6 +64,11 @@ const checkOneAnswer = (chosen, correct, id) => {
 }
 
 const checkAllAnswers = (chosen, correct, all) => {
+    if (chosen === correct) {
+        result(1)
+    } else {
+        result(-1);
+    }
     all.split(",").forEach(r => checkOneAnswer(chosen, correct, r));
 }
 
