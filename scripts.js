@@ -93,7 +93,7 @@ const addAnswers = () => {
     const correctAnswer = [];
     for (let i = 1; i<=answers; i++) {
         answersField.push(`
-        <div class="formFields">
+        <div class="formFields formBackground">
             <div class="formFieldDesc">
                 <b>Answer #${i}</b>
             </div>
