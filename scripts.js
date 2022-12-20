@@ -17,13 +17,9 @@ const result = points => {
     memoryCheck();
     sessionStorage.currentResult = Number(sessionStorage.currentResult) + points;
     const result = JSON.parse(document.cookie);
-    if(Number(sessionStorage.currentResult) >= Number(localStorage.bestResult)) {
-        localStorage.bestResult = sessionStorage.currentResult;
-    }
     if(Number(sessionStorage.currentResult) >= Number(result.bestResult)) {
         result.bestResult = Number(sessionStorage.currentResult);
     }
-    console.log(result);
     document.cookie = JSON.stringify(result);
     document.getElementById("currentResult").innerText = sessionStorage.currentResult;
     document.getElementById("bestResult").innerText = result.bestResult;
@@ -80,5 +76,36 @@ const checkAllAnswers = (chosen, correct, all) => {
     all.split(",").forEach(r => checkOneAnswer(chosen, correct, r));
 }
 
-showQuestion();
-document.getElementById("getQuestion").addEventListener("click", showQuestion);
+const showCategories = async () => {
+    document.getElementById("categoryList").innerText = '';
+    const data = await getData('https://api.michalfutera.pro/QuizApp/database/getCategories');
+    const categories = data['categories'].map(e => `
+        <option value="${e.category_id}">${e.category}</option>
+    `)
+    document.getElementById("categoryList").innerHTML = categories.join('');
+}
+
+const addAnswers = () => {
+    const answers = document.getElementById("answersList").value;
+    document.getElementById("answersFields").innerHTML = "";
+    document.getElementById("correctAnswerList").innerHTML = "";
+    const answersField = [];
+    const correctAnswer = [];
+    for (let i = 1; i<=answers; i++) {
+        answersField.push(`
+        <div class="formFields">
+            <div class="formFieldDesc">
+                <b>Answer #${i}</b>
+            </div>
+            <div class="formField">
+                <textarea id="answer-${i}"></textarea>
+            </div>
+        </div>
+        `);
+        correctAnswer.push(`
+            <option value="${i}">Answer #${i}</option>
+        `);
+    }
+    document.getElementById("answersFields").innerHTML = answersField.join("");
+    document.getElementById("correctAnswerList").innerHTML = correctAnswer.join("");
+}

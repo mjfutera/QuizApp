@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz app by Michal Futera</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div id="header">
+            <h1 id="question">Add Your question</h1>
+            <hr>
+        </div>
+        <div id="form">
+            <div id="categories" class="formFields">
+                <div class="formFieldDesc">
+                    Choose category: 
+                </div>
+                <div class="formField">
+                    <select id="categoryList" name="categoryList">
+
+                    </select>
+                </div>
+            </div>
+            <div id="question" class="formFields">
+                <div class="formFieldDesc">
+                    Add Your question:
+                </div>
+                <div class="formField">
+                    <textarea id="question"></textarea>
+                </div>
+            </div>
+            <div id="answers" class="formFields">
+                <div class="formFieldDesc">
+                    How many answers:
+                </div>
+                <div class="formField">
+                    
+                        <select id="answersList" name="answersList" onchange="addAnswers()">
+                            <option value="2">2</option>
+                            <option value="3" selected>3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    
+                </div>
+            </div>
+            <div id="answersFields">
+                
+            </div>
+            <div id="correctAnswer" class="formFields">
+                <div class="formFieldDesc">
+                    Correct answer:
+                </div>
+                <div class="formField">
+                    <select id="correctAnswerList" name="correctAnswerList">
+                        
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="buttons">
+            <button type="button" class="button" id="getQuestion">Add question</button>
+        </div>
+    </div>
+    <footer>Quiz app by &#169;<a href="https://linktr.ee/mjfutera" target="_blank">Michał Futera</a><br>
+    <a target="_blank" href="https://www.freepik.com/free-vector/space-game-background-neon-night-alien-landscape_7671274.htm#query=space%20background&position=20&from_view=keyword">Image by upklyak</a> on Freepik</footer>
+</body>
+<script src="scripts.js"></script>
+<script>
+        window.addEventListener("load", showCategories);
+        window.addEventListener("load", addAnswers);
+</script>
+</html>

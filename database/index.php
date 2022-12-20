@@ -20,7 +20,6 @@
                 categories.category AS category
                 FROM questions, categories 
                 WHERE categories.category_id=questions.question_category 
-                AND status='confirmed'
                 AND categories.category_id=".$_GET['category']."
                 ORDER BY RANDOM () LIMIT 1";
                 $SQLresult = connectSQLite($sql, $database)[0];
@@ -39,7 +38,6 @@
                 categories.category AS category
                 FROM questions, categories 
                 WHERE categories.category_id=questions.question_category 
-                AND status='confirmed'
                 ORDER BY RANDOM () LIMIT 1";
                 $SQLresult = connectSQLite($sql, $database)[0];
                 $result['question'] = $SQLresult['question'];
