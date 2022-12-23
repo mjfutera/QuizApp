@@ -63,9 +63,17 @@
                     </select>
                 </div>
             </div>
+            <div id="yourName" class="formFields">
+                <div class="formFieldDesc">
+                    Your Name:
+                </div>
+                <div class="formField">
+                    <input type="text" id="name">
+                </div>
+            </div>
         </div>
         <div id="buttons">
-            <button type="button" class="button" id="getQuestion">Add question</button>
+            <button type="button" class="button" id="addQuestion">Add question</button>
             <button type="button" class="button" id="backToQuiz" onclick="window.location.href = './';">Back to quiz</button>
         </div>
     </div>
@@ -76,5 +84,6 @@
 <script>
         window.addEventListener("load", showCategories);
         window.addEventListener("load", addAnswers);
+        document.getElementById("addQuestion").addEventListener("click", addToBase);
 </script>
 </html>

@@ -2,9 +2,9 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: url(background.jpg);
+    background-image: url('background.jpg');
     background-position:top center;
-    background-size:cover;
+    background-size: auto;
     height:100%;
     width:100%;
     position:absolute;
@@ -24,7 +24,7 @@ textarea {
     resize: none;
   }
 
-  select {
+  select, input {
     width: 100%;
     padding: 12px 20px;
     box-sizing: border-box;

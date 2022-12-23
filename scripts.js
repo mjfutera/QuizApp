@@ -109,3 +109,7 @@ const addAnswers = () => {
     document.getElementById("answersFields").innerHTML = answersField.join("");
     document.getElementById("correctAnswerList").innerHTML = correctAnswer.join("");
 }
+
+const addToBase = () => {
+    alert('Possibility to add question will be added soon');
+}

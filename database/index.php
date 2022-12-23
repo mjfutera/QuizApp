@@ -10,7 +10,7 @@
     $url = URLarray();
     $i = 3;
 
-    if($_SERVER['REQUEST_METHOD'] == 'GET') { // pobiera pytanie lub pobiera wyniki
+    if($_SERVER['REQUEST_METHOD'] == 'GET') { 
         if($url[$i] == 'getQuestion') {
             if(isset($_GET['category'])) {
                 $sql = "SELECT 
@@ -58,7 +58,20 @@
         //     echo 'results';
         // }
     }
-    // if($_SERVER['REQUEST_METHOD'] == 'POST') { // dodaje pytanie lub dodaje wynik
-    //     echo 'post';
-    // }
+    if($_SERVER['REQUEST_METHOD'] == 'POST') { 
+        if($url[$i] == 'postQuestion') {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $currentTime = date("Y/m/d h:i:sa");
+            
+            $sql = "INSERT INTO awaitingQuestions (question, question_category, answers, correct_answer, added_by, add_date, added_from) VALUES (".$data['question'].", 2, 3, 4, 5, 6, 7)";
+            // $data['categoryList'].",".
+            // json_encode($data['answers']).",".
+            // $data['correctAnswer'].",".
+            // $data['addedBy'].",".
+            // $currentTime.",".
+            // $data['addedFrom'].")";
+                
+            connectSQLite($sql, $database);
+        }
+    }
 ?>
