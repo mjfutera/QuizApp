@@ -61,17 +61,26 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST') { 
         if($url[$i] == 'postQuestion') {
             $data = json_decode(file_get_contents('php://input'), true);
-            $currentTime = date("Y/m/d h:i:sa");
-            
-            $sql = "INSERT INTO awaitingQuestions (question, question_category, answers, correct_answer, added_by, add_date, added_from) VALUES (".$data['question'].", 2, 3, 4, 5, 6, 7)";
-            // $data['categoryList'].",".
-            // json_encode($data['answers']).",".
-            // $data['correctAnswer'].",".
-            // $data['addedBy'].",".
-            // $currentTime.",".
-            // $data['addedFrom'].")";
-                
-            connectSQLite($sql, $database);
+            $checking['categoryCheck'] = fullCategoryCheck($data, $database);
+            $checking['questionCheck'] = questionCheck($data);
+            $checking['answerCheck'] = answerObjectCheck($data);
+            $checking['correctAnswerCheck'] = correctAnswerCheck($data);
+            $checking['addedFromCheck'] = addedFromAndByCheck($data, 'addedFrom');
+            $checking['addedByCheck'] = addedFromAndByCheck($data, 'addedBy');
+
+            if(in_array(false, $checking)) { 
+                $result['status'] = "Failure";
+                $result['message'] = "One or more fields are incorrect";
+                $result['fields'] = $checking;
+                echo json_encode($result);
+            } else {
+                addNewQuestion($data, $database);
+                $result['status'] = "Success";
+                $result['message'] = "Your question is added do avaiting list. Will be moderated soon";
+                $result['fields'] = $checking;
+                http_response_code(201);
+                echo json_encode($result);
+            } 
         }
     }
 ?>

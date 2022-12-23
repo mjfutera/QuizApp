@@ -11,58 +11,82 @@
         return $rows;
     }
 
+    function addNewQuestion ($object, $database) {
+        $currentTime = date("Y/m/d h:i:sa");
+            $question = $object['question'];
+            $categoryList = $object['categoryList'];
+            $answers = json_encode($object['answers']);
+            $correctAnswer = $object['correctAnswer'];
+            $addedBy = $object['addedBy'];
+            $addedFrom = $object['addedFrom'];
+            
+            $sql = "INSERT INTO awaitingQuestions (
+                question, 
+                question_category, 
+                answers, 
+                correct_answer, 
+                added_by, 
+                add_date, 
+                added_from
+            ) VALUES (
+                '$question', 
+                $categoryList, 
+                '$answers', 
+                $correctAnswer, 
+                '$addedBy', 
+                '$currentTime', 
+                '$addedFrom'
+            )";                
+            connectSQLite($sql, $database);
+    }
+
     function SQLincection ($string) {
         $regex = "/\b(ALTER|CREATE|DELETE|DROP( +TABLE){0,1}|EXEC(UTE){0,1}|INSERT( +INTO){0,1}|MERGE|SELECT|UPDATE|UNION( +ALL){0,1})\b/";
         return preg_match($regex, $string);
     }
 
     function categoryCount ($category_id, $database) {
-        $sql = "SELECT count(category_id) AS count, category FROM categories WHERE category_id=".$category_id;
+        $sql = "SELECT count(category_id) AS count FROM categories WHERE category_id=".$category_id;
         $result = connectSQLite($sql, $database);
-        if ($result[0]['count'] == 1) {
-            return $result[0]['category'];
-        } else {
-            return $result[0]['count'];
-        };
+        return ($result[0]['count'] == 1);
     }
 
-    function categoryCheck ($object, $database) {
-        $check = isset($object['categoryList']) 
+    function categoryGet ($category_id, $database) {
+        $sql = "SELECT category FROM categories WHERE category_id=".$category_id;
+        $result = connectSQLite($sql, $database);
+        return $result[0]['category'];
+    }
+
+    function categoryCheck ($object) {
+        return isset($object['categoryList']) 
         && $object['categoryList'] !== NULL 
         && gettype($object['categoryList']) == "integer" 
         && !SQLincection($object['categoryList']);
-        if(!$check) {
-            return false;
-        } else {
+    }
+
+    function fullCategoryCheck ($object, $database) {
+        if(categoryCheck($object)) {
             return categoryCount($object['categoryList'], $database);
-        }
+        };
     }
 
-    function textCheck ($object, $min, $max) {
+    function questionCheck ($object) {
         return isset($object) 
-        && $object !== NULL 
-        && gettype($object) == "string" 
-        && strlen($object) >= $min
-        && strlen($object) <= $max 
-        && !SQLincection($object);
+        && $object['question'] !== NULL 
+        && gettype($object['question']) == "string" 
+        && strlen($object['question']) >= 10
+        && strlen($object['question']) <= 140 
+        && !SQLincection($object['question']);
     }
 
-    // function singleAnswerCheck ($object) {
-    //     $count = count($object['answers']);
-
-    //     foreach($object['answers'] as $key => $val) {
-    //         echo $key.$val;
-    //         // $object['answers'][$key] = echo $val;
-    //         // textCheck($val, 10, 140);
-    //     }
-    // }
-
-    function answerObjectCheck ($data) {
+    function answerObjectCheck ($object) {
+        $regex = "/\b(ALTER|CREATE|DELETE|DROP( +TABLE){0,1}|EXEC(UTE){0,1}|INSERT( +INTO){0,1}|MERGE|SELECT|UPDATE|UNION( +ALL){0,1})\b/";
         return isset($object['answers']) 
         && count($object['answers']) >= 2 
         && count($object['answers']) <= 6 
         && gettype($object['answers']) == "array" 
-        && !SQLincection(json_encode($object['answers']));
+        && !SQLincection(json_encode($object['answers']))
+        && !in_array($regex, $object['answers']);
     }
 
     function correctAnswerCheck ($object) {
