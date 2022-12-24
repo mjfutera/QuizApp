@@ -18,8 +18,7 @@
             <h5>Your best result is <span id="bestResult">0</span> points</h5>
             <marquee>
                 <ol id="bestResults">Best results:
-                    <li>Marek: 25 points</li>
-                    <li>Alexandra: 20 points</li>
+
                 </ol>
             </marquee>
         </div>
@@ -30,7 +29,7 @@
         </div>
         <div id="buttons">
             <button type="button" class="button" id="getQuestion">Get another question</button>
-            <button type="button" class="button" id="submitResult" disabled>Submit Your result</button>
+            <button type="button" class="button" id="submitResult">Submit Your result</button>
             <button type="button" class="button" id="addNewQuestion" onclick="window.location.href = 'add.html';">Add new question</button>
         </div>
     </div>
@@ -40,6 +39,8 @@
 <script src="scripts.js"></script>
 <script>
     window.addEventListener("load", showQuestion);
+    window.addEventListener("load", showResults);
     document.getElementById("getQuestion").addEventListener("click", showQuestion);
+    document.getElementById("submitResult").addEventListener("click", postResult);
 </script>
 </html>

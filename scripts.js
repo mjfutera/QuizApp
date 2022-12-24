@@ -204,7 +204,38 @@ const addQuestion = async () => {
         const result = await fetch(`${APIurl}/postQuestion`, options).then(r => r.json());
         console.log(result['status']);
         alert(result['message']);
-        
-        
+    }
+}
+
+const showResults = async () => {
+    const results = await getData(`${APIurl}/getResults`);
+    const newResults = results['results'].map(e => `
+        <li>${e.name} - ${e.result} points gained on ${e.result_time}</li>
+    `);
+    document.getElementById("bestResults").innerHTML = "Best results:"+newResults.join("");
+}
+
+const postResult = async () => {
+    const result = {};
+    result['result'] = Number(sessionStorage.currentResult);
+    result['name'] = prompt('What is Your name?');
+    if(result['result'].length===0 || result['result'] === null) {result['result'] = 'Unknown'};
+    if(finalChceckText(result['name'], 1, 20)) {
+        const options = {
+            method: 'POST', 
+            mode: 'cors', 
+            cache: 'no-cache', 
+            credentials: 'same-origin', 
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            redirect: 'follow', 
+            referrerPolicy: 'no-referrer', 
+            body: JSON.stringify(result) 
+          };
+        const answer = await fetch(`${APIurl}/postResult`, options).then(r => r.json());
+        console.log(answer['status']);
+        alert(answer['message']);
+        showResults();
     }
 }
