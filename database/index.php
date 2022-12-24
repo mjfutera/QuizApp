@@ -7,6 +7,7 @@
     header("Access-Control-Allow-Headers: Content-Type");
 
     $database = 'database.db';
+    $currentTime = date("Y/m/d h:i:sa");
     $url = URLarray();
     $i = 3;
 
@@ -59,8 +60,8 @@
         // }
     }
     if($_SERVER['REQUEST_METHOD'] == 'POST') { 
+        $data = json_decode(file_get_contents('php://input'), true);
         if($url[$i] == 'postQuestion') {
-            $data = json_decode(file_get_contents('php://input'), true);
             $checking['categoryCheck'] = fullCategoryCheck($data, $database);
             $checking['questionCheck'] = questionCheck($data);
             $checking['answerCheck'] = answerObjectCheck($data);
@@ -74,13 +75,43 @@
                 $result['fields'] = $checking;
                 echo json_encode($result);
             } else {
-                addNewQuestion($data, $database);
+                addNewQuestion($data, $database, $currentTime);
                 $result['status'] = "Success";
                 $result['message'] = "Your question is added to avaiting list. Will be moderated soon";
                 $result['fields'] = $checking;
                 http_response_code(201);
                 echo json_encode($result);
             } 
+        }
+
+        if($url[$i] == 'postResult') {
+            $name = $data['name'];
+            $result = $data['result'];
+            $checking['resultCheck'] = !SQLincection($result);
+            $checking['nameCheck'] = !SQLincection($name) && gettype($data['name'] == 'string') && strlen($data['name'])>0;
+            if ($checking['nameCheck'] && $checking['resultCheck']) {
+                $sql = "
+                INSERT INTO results (
+                    name,
+                    result,
+                    result_time
+                ) VALUES (
+                    '$name',
+                    '$result',
+                    '$currentTime'
+                )";
+                connectSQLite($sql, $database);
+                $finalResult['status'] = "Success";
+                $finalResult['message'] = "Your score is submites";
+                $finalResult['fields'] = $checking;
+                http_response_code(201);
+                echo json_encode($finalResult);
+            } else {
+                $finalResult['status'] = "Failure";
+                $finalResult['message'] = "One or more fields are incorrect";
+                $finalResult['fields'] = $checking;
+                echo json_encode($finalResult);
+            }
         }
     }
 ?>

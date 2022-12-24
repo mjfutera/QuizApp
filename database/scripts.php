@@ -11,32 +11,32 @@
         return $rows;
     }
 
-    function addNewQuestion ($object, $database) {
+    function addNewQuestion ($object, $database, $currentTime) {
         $currentTime = date("Y/m/d h:i:sa");
-            $question = $object['question'];
-            $categoryList = $object['categoryList'];
-            $answers = json_encode($object['answers']);
-            $correctAnswer = $object['correctAnswer'];
-            $addedBy = $object['addedBy'];
-            $addedFrom = $object['addedFrom'];
+        $question = $object['question'];
+        $categoryList = $object['categoryList'];
+        $answers = json_encode($object['answers']);
+        $correctAnswer = $object['correctAnswer'];
+        $addedBy = $object['addedBy'];
+        $addedFrom = $object['addedFrom'];
             
-            $sql = "INSERT INTO awaitingQuestions (
-                question, 
-                question_category, 
-                answers, 
-                correct_answer, 
-                added_by, 
-                add_date, 
-                added_from
-            ) VALUES (
-                '$question', 
-                $categoryList, 
-                '$answers', 
-                $correctAnswer, 
-                '$addedBy', 
-                '$currentTime', 
-                '$addedFrom'
-            )";                
+        $sql = "INSERT INTO awaitingQuestions (
+            question, 
+            question_category, 
+            answers, 
+            correct_answer, 
+            added_by, 
+            add_date, 
+            added_from
+        ) VALUES (
+            '$question', 
+            $categoryList, 
+            '$answers', 
+            $correctAnswer, 
+            '$addedBy', 
+            '$currentTime', 
+            '$addedFrom'
+        )";                
             connectSQLite($sql, $database);
     }
 
@@ -107,4 +107,8 @@
         && strlen($object[$arr]) <= 20 
         && !SQLincection($object[$arr]);
     }
+
+    // function resultCheck ($object) {
+
+    // }
 ?>
