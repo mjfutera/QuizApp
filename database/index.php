@@ -76,7 +76,7 @@
             } else {
                 addNewQuestion($data, $database);
                 $result['status'] = "Success";
-                $result['message'] = "Your question is added do avaiting list. Will be moderated soon";
+                $result['message'] = "Your question is added to avaiting list. Will be moderated soon";
                 $result['fields'] = $checking;
                 http_response_code(201);
                 echo json_encode($result);

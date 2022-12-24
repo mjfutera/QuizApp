@@ -31,7 +31,9 @@
                     Add Your question:
                 </div>
                 <div class="formField">
-                    <textarea id="question"></textarea>
+                    <textarea id="questionArea" maxlength="280" minlength="5" required oninput="length('questionArea', 'questionMax'); inputCheckQuestion()"></textarea>
+                    <div id="questionError"></div>
+                    <div>Used <span id="questionMax">0</span> of minimum 10 and maximum 280 characters. </div>
                 </div>
             </div>
             <div id="answers" class="formFields">
@@ -68,7 +70,9 @@
                     Your Name:
                 </div>
                 <div class="formField">
-                    <input type="text" id="name">
+                    <input type="text" id="addedBy" id="addedBy" oninput="inputChceckName()">
+                    <div id="addedByError"></div>
+                    <input type="hidden" value="github-mjfutera" id="addedFrom"?
                 </div>
             </div>
         </div>
@@ -84,6 +88,7 @@
 <script>
         window.addEventListener("load", showCategories);
         window.addEventListener("load", addAnswers);
-        document.getElementById("addQuestion").addEventListener("click", addToBase);
+        document.getElementById("addQuestion").addEventListener("click", addQuestion);
+        document.getElementById("categoryList").addEventListener("change", checkCategory);
 </script>
 </html>

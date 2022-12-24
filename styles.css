@@ -151,3 +151,13 @@ footer {
 	position:relative;
 	top:1px;
 }
+
+.addFieldCorrect {
+    background-color: green;
+    color: yellow;
+}
+
+.addFieldIncorrect {
+    background-color: red;
+    color: yellow;
+}

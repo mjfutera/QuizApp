@@ -75,7 +75,7 @@
         && $object['question'] !== NULL 
         && gettype($object['question']) == "string" 
         && strlen($object['question']) >= 10
-        && strlen($object['question']) <= 140 
+        && strlen($object['question']) <= 280 
         && !SQLincection($object['question']);
     }
 
@@ -93,20 +93,18 @@
         return isset($object['correctAnswer']) 
         && $object['correctAnswer'] !== NULL 
         && gettype($object['correctAnswer']) == "integer" 
-        && strlen($object['correctAnswer']) >= 0 
+        && strlen($object['correctAnswer']) >= 1 
         && $object['correctAnswer'] <= count($object['answers']) 
         && !SQLincection($object['correctAnswer'])
         && in_array($object['correctAnswer'], array_keys($object['answers']));
     }
 
     function addedFromAndByCheck ($object, $arr) {
-        $pattern = "/\s/";
         return isset($object[$arr]) 
         && $object[$arr] !== NULL 
         && gettype($object[$arr]) == "string" 
         && strlen($object[$arr]) >= 3 
         && strlen($object[$arr]) <= 20 
-        && !preg_match($pattern, $object[$arr]) 
         && !SQLincection($object[$arr]);
     }
 ?>
