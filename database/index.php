@@ -55,9 +55,11 @@
             echo json_encode($SQLresult);
             exit();
         }
-        // if($url[$i] == 'getResults') {
-        //     echo 'results';
-        // }
+        if($url[$i] == 'getResults') {
+            $sql = "SELECT name, result, result_time FROM results ORDER BY result DESC LIMIT 10";
+            $result['results'] = connectSQLite($sql, $database);
+            echo json_encode($result);
+        }
     }
     if($_SERVER['REQUEST_METHOD'] == 'POST') { 
         $data = json_decode(file_get_contents('php://input'), true);
@@ -102,7 +104,7 @@
                 )";
                 connectSQLite($sql, $database);
                 $finalResult['status'] = "Success";
-                $finalResult['message'] = "Your score is submites";
+                $finalResult['message'] = "Your score is submited";
                 $finalResult['fields'] = $checking;
                 http_response_code(201);
                 echo json_encode($finalResult);
