@@ -1,5 +1,9 @@
 <?php
     require('scripts.php');
+    require('get.php');
+    require('post.php');
+    require('put.php');
+    require('delete.php');
     
     header("Content-type: application/json; charset=UTF-8");
     header('Access-Control-Allow-Origin: *');
@@ -89,7 +93,7 @@
         if($url[$i] == 'postResult') {
             $name = $data['name'];
             $result = $data['result'];
-            $checking['resultCheck'] = !SQLincection($result);
+            $checking['resultCheck'] = !SQLincection($result) gettype($data['name'] ;
             $checking['nameCheck'] = !SQLincection($name) && gettype($data['name'] == 'string') && strlen($data['name'])>0;
             if ($checking['nameCheck'] && $checking['resultCheck']) {
                 $sql = "
