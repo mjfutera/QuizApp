@@ -7,7 +7,7 @@
 
 ## Introduction
 Simple quiz application based on vanilla JS and PHP. User can get new question though API from database in SQL. After, result can be also submited to database. 
-The project is still in the development stage. Missing admin panel and API needs to be improved in terms of security. Fronend wokrs without issues.
+The project is still in the development stage. Missing admin panel and API needs to be improved in terms of security. Fronend works without issues.
 
 Current amount of questions in database - 3 (just to make it work).
 
