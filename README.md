@@ -6,12 +6,14 @@
 
 
 ## Introduction
-Simple quiz application based on vanilla JS and PHP. User can get new question though API from database in SQL. After, result can be also submited to database. 
-The project is still in the development stage. Missing admin panel and API needs to be improved in terms of security. Fronend works without issues.
+Simple quiz application based on vanilla JS and PHP. User can get new question though API from database in SQL. After, result can be also submited to database.  Missing admin panel and API needs to be improved in terms of security. Fronend works without issues.
 
 Current amount of questions in database - 3 (just to make it work).
 
 If You want to participate in app development, just text me. Reason to build this app is to create portfolio.
+
+## Aplication status
+The project is still in the **development stage**.
 
 ## You can see working app under:
 <a href="https://mjfutera.github.io/QuizApp" target="_blank">https://mjfutera.github.io/QuizApp</a>
