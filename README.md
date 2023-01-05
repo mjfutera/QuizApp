@@ -13,6 +13,9 @@ Current amount of questions in database - 3 (just to make it work).
 
 If You want to participate in app development, just text me. Reason to build this app is to create portfolio.
 
+## You can see working app under:
+https://mjfutera.github.io/QuizApp
+
 ## Used technologies
 * PHP 7.4
 * JavaScript
