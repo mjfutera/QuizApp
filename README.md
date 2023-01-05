@@ -25,6 +25,9 @@ https://mjfutera.github.io/QuizApp
 ## Big thanks to Discord community for feedback:
 * https://discord.gg/zaprogramujzycie
 
+## Pictures
+* <a href="https://www.freepik.com/free-vector/space-game-background-neon-night-alien-landscape_7671274.htm#query=space%20background&position=20&from_view=keyword" target="_blank">Image by upklyak on Freepik</a>
+
 ## Check my other social media:
 * https://twitter.com/mjfutera
 * https://www.linkedin.com/in/michalfutera/
