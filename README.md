@@ -31,6 +31,7 @@ The project is still in the **development stage**.
 * <a href="https://www.freepik.com/free-vector/space-game-background-neon-night-alien-landscape_7671274.htm#query=space%20background&position=20&from_view=keyword" target="_blank">Image by upklyak on Freepik</a>
 
 ## Check my other social media:
-* <a href="https://twitter.com/mjfutera" target="_blank">https://twitter.com/mjfutera</a>
-* <a href="https://www.linkedin.com/in/michalfutera/" target="_blank">https://www.linkedin.com/in/michalfutera/</a>
-* <a href="https://linktr.ee/mjfutera" target="_blank">https://linktr.ee/mjfutera</a>
+* <a href="https://twitter.com/mjfutera" target="_blank">Twitter</a>
+* <a href="https://www.linkedin.com/in/michalfutera/" target="_blank">LinkedIn</a>
+* <a href="https://www.buymeacoffee.com/mjfutera" target="_blank">Buy Me A Coffee</a>
+* <a href="https://linktr.ee/mjfutera" target="_blank">Other links</a>
