@@ -1,3 +1,7 @@
+// QuizApp v. v. 1.017
+// By Michal Futera
+// https://linktr.ee/mjfutera
+
 const APIurl = "https://api.michalfutera.pro/QuizApp/database";
 const SQLregex = /\b(ALTER|CREATE|DELETE|DROP( +TABLE){0,1}|EXEC(UTE){0,1}|INSERT( +INTO){0,1}|MERGE|SELECT|UPDATE|UNION( +ALL){0,1})\b/;
 

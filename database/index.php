@@ -1,4 +1,9 @@
 <?php
+
+// QuizApp v. v. 1.017
+// By Michal Futera
+// https://linktr.ee/mjfutera
+
     require('scripts.php');
     require('pass.php');
     

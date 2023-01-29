@@ -1,4 +1,9 @@
 <?php
+
+// QuizApp v. v. 1.017
+// By Michal Futera
+// https://linktr.ee/mjfutera
+
     function URLarray ($url = NULL) {
         if ($url===NULL) {$url = $_SERVER['REQUEST_URI']; }
         return explode("/", parse_url($url, PHP_URL_PATH));
