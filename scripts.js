@@ -2,7 +2,7 @@
 // By Michal Futera
 // https://linktr.ee/mjfutera
 
-const APIurl = "https://api.michalfutera.pro/QuizApp/database";
+const APIurl = "http://localhost/QuizApp/database";
 const SQLregex = /\b(ALTER|CREATE|DELETE|DROP( +TABLE){0,1}|EXEC(UTE){0,1}|INSERT( +INTO){0,1}|MERGE|SELECT|UPDATE|UNION( +ALL){0,1})\b/;
 
 const getData = async (url) => await fetch(url).then(r => r.json());
@@ -38,6 +38,7 @@ const showQuestion = async () => {
     const result = JSON.parse(document.cookie);
     document.getElementById("bestResult").innerText = result.bestResult;
     const data = await getData(`${APIurl}/getQuestion`);
+    console.log(data);
     document.getElementById("question").innerText = data['question'];
     document.getElementById("questionCategory").innerText = "Category: "+data['category'];
     document.getElementById("answers").innerHTML = '';

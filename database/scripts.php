@@ -1,6 +1,6 @@
 <?php
 
-// QuizApp v. v. 1.017
+// QuizApp v. v. 1.018
 // By Michal Futera
 // https://linktr.ee/mjfutera
 

@@ -1,11 +1,11 @@
 <?php
 
-// QuizApp v. v. 1.017
+// QuizApp v. v. 1.018
 // By Michal Futera
 // https://linktr.ee/mjfutera
 
     require('scripts.php');
-    require('pass.php');
+    // require('pass.php');
     
     header("Content-type: application/json; charset=UTF-8");
     header('Access-Control-Allow-Origin: *');
@@ -65,8 +65,8 @@
             $sql = "SELECT name, result, result_time FROM results ORDER BY result DESC LIMIT 10";
             $result['results'] = connectSQLite($sql, $database);
             echo json_encode($result);}}
-        // if($url[$i] == 'getAwaitingQuestion') {} // gets awaiting questions from DB to be approved/ modified or deleted by admin. Require Password
-        // if($url[$i] == 'getAwaitingCategory') {} // gets awaiting categories from DB to be approved/ modified or deleted by admin. Require Password
+        // if($url[$i] == 'getAwaitingQuestion') {} // gets awaiting questions from DB to be approved/ modified or deleted by admin. Require Admin Password
+        // if($url[$i] == 'getAwaitingCategory') {} // gets awaiting categories from DB to be approved/ modified or deleted by admin. Require Admin Password
         // if($url[$i] == 'getStats') {} // shows statistics for categories
         // if($url[$i] == 'checkPassword') {} // checks password for admin panel
         
@@ -95,47 +95,46 @@
             }}
 
 
-        if($url[$i] == 'postResult') { //post result do database. !NEED TO IMPROVE DATA VERIFICATION
-            $name = $data['name'];
-            $result = $data['result'];
-            $checking['resultCheck'] = !SQLincection($result) && gettype($result) ==  ;
-            $checking['nameCheck'] = !SQLincection($name) && gettype($data['name'] == 'string') && strlen($data['name'])>0;
-            if ($checking['nameCheck'] && $checking['resultCheck']) {
-                $sql = "
-                INSERT INTO results (
-                    name,
-                    result,
-                    result_time
-                ) VALUES ( 
-                    '$name',
-                    '$result',
-                    '$currentTime'
-                )";
-                connectSQLite($sql, $database);
-                $finalResult['status'] = "Success";
-                $finalResult['message'] = "Your score is submited";
-                $finalResult['fields'] = $checking;
-                http_response_code(201);
-                echo json_encode($finalResult);
-            } else {
-                $finalResult['status'] = "Failure";
-                $finalResult['message'] = "One or more fields are incorrect";
-                $finalResult['fields'] = $checking;
-                echo json_encode($finalResult);}} 
-        // if($url[$i] == 'postNewQuestion') {} // adds question to database, after approvement by admin. Require Password
-        // if($url[$i] == 'postNewCategory') {} // adds category to database, after approvement by admin. Require Password
+        // if($url[$i] == 'postResult') { //post result do database. !NEED TO IMPROVE DATA VERIFICATION
+        //     $name = $data['name'];
+        //     $result = $data['result'];
+        //     // $checking['resultCheck'] = !SQLincection($result) && gettype($result) ==  ;
+        //     $checking['nameCheck'] = !SQLincection($name) && gettype($data['name'] == 'string') && strlen($data['name'])>0;
+        //     if ($checking['nameCheck'] && $checking['resultCheck']) {
+        //         $sql = "
+        //         INSERT INTO results (
+        //             name,
+        //             result,
+        //             result_time
+        //         ) VALUES ( 
+        //             '$name',
+        //             '$result',
+        //             '$currentTime'
+        //         )";
+        //         connectSQLite($sql, $database);
+        //         $finalResult['status'] = "Success";
+        //         $finalResult['message'] = "Your score is submited";
+        //         $finalResult['fields'] = $checking;
+        //         http_response_code(201);
+        //         echo json_encode($finalResult);
+        //     } else {
+        //         $finalResult['status'] = "Failure";
+        //         $finalResult['message'] = "One or more fields are incorrect";
+        //         $finalResult['fields'] = $checking;
+        //         echo json_encode($finalResult);}} 
+        // if($url[$i] == 'postNewQuestion') {} // adds question to database, after approvement by admin. Require Admin Password
+        // if($url[$i] == 'postNewCategory') {} // adds category to database, after approvement by admin. Require Admin Password
     }
     // if($_SERVER['REQUEST_METHOD'] == 'PUT') {
-    //     if($url[$i] == 'editQuestion') {} // edit question in database. Require Password
-    //     if($url[$i] == 'editCategory') {} // edit category in database. Require Password
-    //     if($url[$i] == 'editAwaitingQuestion') {} // edit question in database. Require Password
-    //     if($url[$i] == 'editAwaitingCategory') {} // edit category in database. Require Password
+    //     if($url[$i] == 'editQuestion') {} // edit question in database. Require Admin Password
+    //     if($url[$i] == 'editCategory') {} // edit category in database. Require Admin Password
+    //     if($url[$i] == 'editAwaitingQuestion') {} // edit question in database. Require Admin Password
+    //     if($url[$i] == 'editAwaitingCategory') {} // edit category in database. Require Admin Password
     // } 
     // if($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    //     if($url[$i] == 'deleteQuestion') {} // delete question in database. Require Password
-    //     if($url[$i] == 'deleteAwaitingQuestion') {} // delete awaiting question in database. Require Password
-    //     if($url[$i] == 'deleteCategory') {} // delete category in database. Require Password
-    //     if($url[$i] == 'deleteAwaitingQuestion') {} // delete awaiting category in database. Require Password
-    //     if($url[$i] == 'deleteResult') {} // delete awaiting category in database. Require Password
+    //     if($url[$i] == 'deleteQuestion') {} // delete question in database. Require Admin Password
+    //     if($url[$i] == 'deleteAwaitingQuestion') {} // delete awaiting question in database. Require Admin Password
+    //     if($url[$i] == 'deleteCategory') {} // delete category in database. Require Admin Password
+    //     if($url[$i] == 'deleteResult') {} // delete awaiting category in database. Require Admin Password
     // }
 ?>
