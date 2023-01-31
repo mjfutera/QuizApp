@@ -12,6 +12,9 @@ Current amount of questions in database - 3 (just to make it work).
 
 If You want to participate in app development, just text me. Reason to build this app is to create portfolio.
 
+Colaborators:
+@DiegoPatti-Dev
+
 ## Aplication status
 The project is still in the **development stage**.
 
