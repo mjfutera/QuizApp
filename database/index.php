@@ -1,5 +1,5 @@
 <?php
-    // QuizApp v. v. 1.020
+    // QuizApp v. 1.021
     // By Michal Futera
     // https://linktr.ee/mjfutera
 
@@ -63,7 +63,7 @@
             $result['results'] = connectSQLite($sql, $database);
             echo json_encode($result);}
         if($url[$i] == 'checkPassword') {
-            if(apache_request_headers()['password'] == $adminPassword) {
+            if(getallheaders()['Password'] == $adminPassword) {
                 echo json_encode('true');
             } else {
                 echo json_encode('false');
@@ -94,9 +94,8 @@
                 $result['fields'] = $checking;
                 http_response_code(201);
                 echo json_encode($result);
-            } }
-
-        if($url[$i] == 'postResult') {
+            }}
+            if($url[$i] == 'postResult') {
             $name = $data['name'];
             $result = $data['result'];
             $checking['resultCheck'] = !SQLincection($result);
@@ -124,7 +123,6 @@
                 $finalResult['fields'] = $checking;
                 echo json_encode($finalResult);
             }}
-        
             // if($url[$i] == 'postNewQuestion') {} // adds question to database, after approvement by admin. Require Admin Password
         // if($url[$i] == 'postNewCategory') {} // adds category to database, after approvement by admin. Require Admin Password
     }
