@@ -1,5 +1,5 @@
 <?php
-    // QuizApp v. v. 1.019
+    // QuizApp v. v. 1.020
     // By Michal Futera
     // https://linktr.ee/mjfutera
 
@@ -62,6 +62,12 @@
             $sql = "SELECT name, result, result_time FROM results ORDER BY result DESC LIMIT 10";
             $result['results'] = connectSQLite($sql, $database);
             echo json_encode($result);}
+        if($url[$i] == 'checkPassword') {
+            if(apache_request_headers()['password'] == $adminPassword) {
+                echo json_encode('true');
+            } else {
+                echo json_encode('false');
+            }}// checks password for admin panel
         // if($url[$i] == 'getAwaitingQuestion') {} // gets awaiting questions from DB to be approved/ modified or deleted by admin. Require Admin Password
         // if($url[$i] == 'getAwaitingCategory') {} // gets awaiting categories from DB to be approved/ modified or deleted by admin. Require Admin Password
         // if($url[$i] == 'getStats') {} // shows statistics for categories
@@ -118,13 +124,7 @@
                 $finalResult['fields'] = $checking;
                 echo json_encode($finalResult);
             }}
-        if($url[$i] == 'checkPassword') {
-            $data = json_decode(file_get_contents('php://input'), true);
-            if($data['password'] == $adminPassword) {
-                echo json_encode('true');
-            } else {
-                echo json_encode('false');
-            }}// checks password for admin panel
+        
             // if($url[$i] == 'postNewQuestion') {} // adds question to database, after approvement by admin. Require Admin Password
         // if($url[$i] == 'postNewCategory') {} // adds category to database, after approvement by admin. Require Admin Password
     }
