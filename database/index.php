@@ -63,11 +63,13 @@
             $result['results'] = connectSQLite($sql, $database);
             echo json_encode($result);}
         if($url[$i] == 'checkPassword') {
-            if(getallheaders()['Password'] == $adminPassword) {
+            if(getallheaders()['password'] == $adminPassword) {
                 echo json_encode('true');
             } else {
                 echo json_encode('false');
-            }}// checks password for admin panel
+            }
+        }
+        // checks password for admin panel
         // if($url[$i] == 'getAwaitingQuestion') {} // gets awaiting questions from DB to be approved/ modified or deleted by admin. Require Admin Password
         // if($url[$i] == 'getAwaitingCategory') {} // gets awaiting categories from DB to be approved/ modified or deleted by admin. Require Admin Password
         // if($url[$i] == 'getStats') {} // shows statistics for categories
