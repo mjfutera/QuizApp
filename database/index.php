@@ -53,7 +53,7 @@
                 echo json_encode($result);
                 exit();
             }}
-        if($url[$i] == 'getCategories') {
+            if($url[$i] == 'getCategories') {
             $sql = "SELECT * FROM categories";
             $SQLresult['categories'] = connectSQLite($sql, $database);
             echo json_encode($SQLresult);
@@ -62,20 +62,17 @@
             $sql = "SELECT name, result, result_time FROM results ORDER BY result DESC LIMIT 10";
             $result['results'] = connectSQLite($sql, $database);
             echo json_encode($result);}
-        if($url[$i] == 'checkPassword') {
-            if(getallheaders()['password'] == $adminPassword) {
-                echo json_encode('true');
-            } else {
-                echo json_encode('false');
-            }
-        }
         // checks password for admin panel
+        if($url[$i] == 'checkPassword') {echo json_encode(getallheaders()['Password'] === $adminPassword);}
+        if($url[$i] == 'testPassword') {echo json_encode(getallheaders()['Password']);}
         // if($url[$i] == 'getAwaitingQuestion') {} // gets awaiting questions from DB to be approved/ modified or deleted by admin. Require Admin Password
         // if($url[$i] == 'getAwaitingCategory') {} // gets awaiting categories from DB to be approved/ modified or deleted by admin. Require Admin Password
         // if($url[$i] == 'getStats') {} // shows statistics for categories
     }
     if($_SERVER['REQUEST_METHOD'] == 'POST') { 
         $data = json_decode(file_get_contents('php://input'), true);
+        // if($url[$i] == 'checkPassword') {echo json_encode(getallheaders()['Password'] === $adminPassword);}
+        // if($url[$i] == 'testPassword') {echo json_encode(getallheaders()['Password']);}
         if($url[$i] == 'postQuestion') {
             $checking['categoryCheck'] = fullCategoryCheck($data, $database);
             $checking['questionCheck'] = questionCheck($data);
