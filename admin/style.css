@@ -91,7 +91,6 @@ input {
 
 ::placeholder {
     color: #e5e5e5;
-    text-align: center;
 }
 
 .logIN {
@@ -113,6 +112,10 @@ input {
     transition-duration: 0.5s;
 }
 
-img {
-    height: 200px;
+.pass-icon {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right: 50px;
+    cursor: pointer;
 }
