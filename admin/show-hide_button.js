@@ -1,7 +1,5 @@
-let a;
-
 function pass() {
-    if (a == 1) {
+    if (document.getElementById(`password`).getAttribute("type") === "text") {
         document.getElementById(`password`).type = `password`;
         document.getElementById(`pass-icon`).src = `image/hide-pass.png`;
         a = 0;
