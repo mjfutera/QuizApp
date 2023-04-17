@@ -123,7 +123,7 @@
                 $finalResult['fields'] = $checking;
                 echo json_encode($finalResult);
             }}
-            // if($url[$i] == 'postNewQuestion') {} // adds question to database, after approvement by admin. Require Admin Password
+        // if($url[$i] == 'postNewQuestion') {} // adds question to database, after approvement by admin. Require Admin Password
         // if($url[$i] == 'postNewCategory') {} // adds category to database, after approvement by admin. Require Admin Password
     }
     // if($_SERVER['REQUEST_METHOD'] == 'PUT') {
