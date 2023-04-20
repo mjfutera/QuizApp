@@ -16,6 +16,16 @@
         return $rows;
     }
 
+    function insertToSQLite($sql, $file) {
+        try {
+            $pdo = new PDO('sqlite:'.$file);
+            $pdo->exec($sql);
+            return true;
+        } catch(PDOException $e) {
+            return false;
+        }
+    }
+
     function addNewQuestion ($object, $database, $currentTime) {
         $currentTime = date("Y/m/d h:i:sa");
         $question = $object['question'];

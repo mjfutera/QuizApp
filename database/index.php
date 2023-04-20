@@ -3,8 +3,8 @@
     // By Michal Futera
     // https://linktr.ee/mjfutera
 
-    require('scripts.php');
-    require('pass.php');
+    require('../scripts.php');
+    // require('pass.php');
     
     header("Content-type: application/json; charset=UTF-8");
     header('Access-Control-Allow-Origin: *');
@@ -14,10 +14,12 @@
     $database = 'database.db';
     $currentTime = date("Y/m/d h:i:sa");
     $url = URLarray();
-    $i = 3;
+    $i = array_search("database", $url);
+    $request = $url[$i+1];
+
 
     if($_SERVER['REQUEST_METHOD'] == 'GET') { 
-        if($url[$i] == 'getQuestion') {
+        if($request == 'getQuestion') {
             if(isset($_GET['category'])) {
                 $sql = "SELECT 
                 questions.question AS question, 
@@ -53,28 +55,28 @@
                 echo json_encode($result);
                 exit();
             }}
-        if($url[$i] == 'getCategories') {
+        if($request == 'getCategories') {
             $sql = "SELECT * FROM categories";
             $SQLresult['categories'] = connectSQLite($sql, $database);
             echo json_encode($SQLresult);
             exit();}
-        if($url[$i] == 'getResults') {
+        if($request == 'getResults') {
             $sql = "SELECT name, result, result_time FROM results ORDER BY result DESC LIMIT 10";
             $result['results'] = connectSQLite($sql, $database);
             echo json_encode($result);}
-        if($url[$i] == 'checkPassword') {
+        if($request == 'checkPassword') {
             if(getallheaders()['Password'] == $adminPassword) {
                 echo json_encode('true');
             } else {
                 echo json_encode('false');
             }}// checks password for admin panel
-        // if($url[$i] == 'getAwaitingQuestion') {} // gets awaiting questions from DB to be approved/ modified or deleted by admin. Require Admin Password
-        // if($url[$i] == 'getAwaitingCategory') {} // gets awaiting categories from DB to be approved/ modified or deleted by admin. Require Admin Password
-        // if($url[$i] == 'getStats') {} // shows statistics for categories
+        // if($request == 'getAwaitingQuestion') {} // gets awaiting questions from DB to be approved/ modified or deleted by admin. Require Admin Password
+        // if($request == 'getAwaitingCategory') {} // gets awaiting categories from DB to be approved/ modified or deleted by admin. Require Admin Password
+        // if($request == 'getStats') {} // shows statistics for categories
     }
     if($_SERVER['REQUEST_METHOD'] == 'POST') { 
         $data = json_decode(file_get_contents('php://input'), true);
-        if($url[$i] == 'postQuestion') {
+        if($request == 'postQuestion') {
             $checking['categoryCheck'] = fullCategoryCheck($data, $database);
             $checking['questionCheck'] = questionCheck($data);
             $checking['answerCheck'] = answerObjectCheck($data);
@@ -95,7 +97,7 @@
                 http_response_code(201);
                 echo json_encode($result);
             }}
-            if($url[$i] == 'postResult') {
+            if($request == 'postResult') {
             $name = $data['name'];
             $result = $data['result'];
             $checking['resultCheck'] = !SQLincection($result);
@@ -123,19 +125,19 @@
                 $finalResult['fields'] = $checking;
                 echo json_encode($finalResult);
             }}
-        // if($url[$i] == 'postNewQuestion') {} // adds question to database, after approvement by admin. Require Admin Password
-        // if($url[$i] == 'postNewCategory') {} // adds category to database, after approvement by admin. Require Admin Password
+        // if($request == 'postNewQuestion') {} // adds question to database, after approvement by admin. Require Admin Password
+        // if($request == 'postNewCategory') {} // adds category to database, after approvement by admin. Require Admin Password
     }
     // if($_SERVER['REQUEST_METHOD'] == 'PUT') {
-    //     if($url[$i] == 'editQuestion') {} // edit question in database. Require Admin Password
-    //     if($url[$i] == 'editCategory') {} // edit category in database. Require Admin Password
-    //     if($url[$i] == 'editAwaitingQuestion') {} // edit question in database. Require Admin Password
-    //     if($url[$i] == 'editAwaitingCategory') {} // edit category in database. Require Admin Password
+    //     if($request == 'editQuestion') {} // edit question in database. Require Admin Password
+    //     if($request == 'editCategory') {} // edit category in database. Require Admin Password
+    //     if($request == 'editAwaitingQuestion') {} // edit question in database. Require Admin Password
+    //     if($request == 'editAwaitingCategory') {} // edit category in database. Require Admin Password
     // } 
     // if($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    //     if($url[$i] == 'deleteQuestion') {} // delete question in database. Require Admin Password
-    //     if($url[$i] == 'deleteAwaitingQuestion') {} // delete awaiting question in database. Require Admin Password
-    //     if($url[$i] == 'deleteCategory') {} // delete category in database. Require Admin Password
-    //     if($url[$i] == 'deleteResult') {} // delete awaiting category in database. Require Admin Password
+    //     if($request == 'deleteQuestion') {} // delete question in database. Require Admin Password
+    //     if($request == 'deleteAwaitingQuestion') {} // delete awaiting question in database. Require Admin Password
+    //     if($request == 'deleteCategory') {} // delete category in database. Require Admin Password
+    //     if($request == 'deleteResult') {} // delete awaiting category in database. Require Admin Password
     // 
 ?>
