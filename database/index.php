@@ -4,7 +4,10 @@
     // https://linktr.ee/mjfutera
 
     require('../scripts.php');
-    // require('pass.php');
+    session_start();
+    if(!isset($_SESSION['downloaded_questions'])) {
+        $_SESSION['downloaded_questions'] = 0;
+    }
     
     header("Content-type: application/json; charset=UTF-8");
     header('Access-Control-Allow-Origin: *');
@@ -16,30 +19,26 @@
     $url = URLarray();
     $i = array_search("database", $url);
     $request = $url[$i+1];
+    $data = json_decode(file_get_contents('php://input'), true);
 
 
     if($_SERVER['REQUEST_METHOD'] == 'GET') { 
         if($request == 'getQuestion') {
+
             if(isset($_GET['category'])) {
                 $sql = "SELECT 
+                questions.question_id,
                 questions.question AS question, 
                 questions.answers AS answers, 
                 questions.correct_answer AS correct, 
                 categories.category AS category
                 FROM questions, categories 
-                WHERE categories.category_id=questions.question_category 
+                WHERE categories.category_id=questions.question_category
                 AND categories.category_id=".$_GET['category']."
                 ORDER BY RANDOM () LIMIT 1";
-                $SQLresult = connectSQLite($sql, $database)[0];
-                $result['question'] = $SQLresult['question'];
-                $result['answers'] = json_decode($SQLresult['answers']);
-                $result['correct'] = $SQLresult['correct'];
-                $result['category'] = $SQLresult['category'];
-                echo json_encode($result);
-                exit();
-
             } else {
                 $sql = "SELECT 
+                questions.question_id,
                 questions.question AS question, 
                 questions.answers AS answers, 
                 questions.correct_answer AS correct, 
@@ -47,14 +46,18 @@
                 FROM questions, categories 
                 WHERE categories.category_id=questions.question_category 
                 ORDER BY RANDOM () LIMIT 1";
-                $SQLresult = connectSQLite($sql, $database)[0];
-                $result['question'] = $SQLresult['question'];
-                $result['answers'] = json_decode($SQLresult['answers']);
-                $result['correct'] = $SQLresult['correct'];
-                $result['category'] = $SQLresult['category'];
-                echo json_encode($result);
-                exit();
-            }}
+            }
+            $SQLresult = connectSQLite($sql, $database)[0];
+            $result['question_id'] = $SQLresult['question_id'];
+            $result['question'] = $SQLresult['question'];
+            $result['answers'] = json_decode($SQLresult['answers']);
+            $result['correct'] = $SQLresult['correct'];
+            $result['category'] = $SQLresult['category'];
+            $_SESSION['downloaded_questions'] += 1;
+            $result['downloaded_questions'] = $_SESSION['downloaded_questions'];
+            echo json_encode($result);
+            exit();
+        }
         if($request == 'getCategories') {
             $sql = "SELECT * FROM categories";
             $SQLresult['categories'] = connectSQLite($sql, $database);
@@ -75,7 +78,6 @@
         // if($request == 'getStats') {} // shows statistics for categories
     }
     if($_SERVER['REQUEST_METHOD'] == 'POST') { 
-        $data = json_decode(file_get_contents('php://input'), true);
         if($request == 'postQuestion') {
             $checking['categoryCheck'] = fullCategoryCheck($data, $database);
             $checking['questionCheck'] = questionCheck($data);
