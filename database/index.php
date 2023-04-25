@@ -5,7 +5,7 @@
 
     require('../scripts.php');
     session_start();
-    if(!isset($_SESSION['downloaded_questions'])) {
+    if(!isset($_SESSION['downloaded_questions']) || isset($_GET['reset'])) {
         $_SESSION['downloaded_questions'] = 0;
     }
     
